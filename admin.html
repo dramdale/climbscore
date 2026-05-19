@@ -312,7 +312,6 @@
     <button class="btn-secondary" onclick="showScreen('queue')">🕐 VIEW QUEUES</button>
     <button class="btn-secondary" onclick="showScreen('leaderboard')">🏆 LEADERBOARD</button>
   </div>
-  <div style="color:var(--text-muted);font-size:11px;text-align:center;letter-spacing:1px;margin-top:8px;">DEMO MODE — Mock Data Active</div>
 </div>
 
 <!-- ══════════════════════════════════════════
@@ -335,7 +334,7 @@
     <div class="camera-error" id="admin-camera-error">Camera unavailable. Use the list below.</div>
   </div>
   <div class="scan-demo-section">
-    <div class="scan-demo-label">— Demo: tap a competitor —</div>
+    <div class="scan-demo-label">— no camera? tap a competitor —</div>
     <div class="demo-competitors" id="demo-list"></div>
   </div>
 </div>
@@ -986,6 +985,7 @@ function togglePM(reg,ci,ai){
 
 function deleteAttempt(reg,ci,ai,e){
   e.stopPropagation();
+  if(!confirm(`Delete Attempt ${ai+1}?`))return;
   apiDeleteAttempt(reg,ci,ai);
   showToast('Attempt deleted','warn');
   renderScoring();

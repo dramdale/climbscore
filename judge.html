@@ -366,7 +366,7 @@
     <div class="err-detail" id="scan-err-detail"></div>
   </div>
   <div class="scan-demo-section">
-    <div class="scan-demo-label">— or tap a competitor —</div>
+    <div class="scan-demo-label">— no camera? tap a competitor —</div>
     <div id="scan-demo-list"></div>
   </div>
 </div>
@@ -1010,7 +1010,7 @@ function toggleClimb(ci){
 function addScore(reg,ci,score){if((allScores[reg][ci]||[]).length>=MAX_ATTEMPTS||climbTopped(reg,ci))return;const ai=(allScores[reg][ci]||[]).length;apiSubmitScore(currentJudge.id,reg,ci,ai,score,false,false);showToast(`C${ci} A${ai+1}: ${score}`);renderJudgeScoring();}
 function addTop(reg,ci){if((allScores[reg][ci]||[]).length>=MAX_ATTEMPTS||climbTopped(reg,ci))return;const ai=(allScores[reg][ci]||[]).length;const bonus=TOP_BONUS[ai]||0;apiSubmitScore(currentJudge.id,reg,ci,ai,TOP_SCORE,false,true);showToast(`★ TOPPED! 60+${bonus}=${TOP_SCORE+bonus}`,'top');renderJudgeScoring();}
 function togglePM(reg,ci,ai){const a=allScores[reg][ci][ai];if(a.isTop)return;apiSubmitScore(currentJudge.id,reg,ci,ai,a.score,!a.positiveMovement,false);showToast(!a.positiveMovement?'+PM added':'PM removed');renderJudgeScoring();}
-function delAttempt(reg,ci,ai){apiDeleteAttempt(reg,ci,ai);showToast('Attempt deleted','warn');renderJudgeScoring();}
+function delAttempt(reg,ci,ai){if(!confirm(`Delete Attempt ${ai+1}?`))return;apiDeleteAttempt(reg,ci,ai);showToast('Attempt deleted','warn');renderJudgeScoring();}
 
 function doneScoring(){
   if(scoringFromClimb!==null){
